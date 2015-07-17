@@ -5,7 +5,19 @@ class window.Hand extends Backbone.Collection
 
   hit: ->
     @add(@deck.pop())
+    @deck.last()
+    # @checkscore()
 
+  checkscore: -> 
+    if @scores()[1] == 21
+      alert 'BLACKJACK!'
+
+    if @scores()[1] > 21
+      alert 'busted'
+    #console.log('Real score: ' + @scores()[0])
+    #console.log('Fake score: ' + @scores()[1])
+
+  #TODO Change this back to "is 1"
   hasAce: -> @reduce (memo, card) ->
     memo or card.get('value') is 1
   , 0
