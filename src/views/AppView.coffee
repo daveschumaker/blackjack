@@ -9,31 +9,25 @@ class window.AppView extends Backbone.View
   events:
     'click .hit-button': -> @model.get('playerHand').hit()
     'click .stand-button': -> 
-      @model.get('playerHand').stand()
-      while @model.get('dealerHand').scores()[0] < 21
-        @dealerMove()
+      while @model.get('dealerHand').dealerScore() < 17
+        @model.get('dealerHand').dealerMove()
+
     'click .new-game': -> @resetHands()
 
 
-
   initialize: ->
-    # @model.get('playerHand').on 'change', =>
-    #   console.log('new hand')
-    #   @render()
+    @model.get('playerHand').on 'endgame', ->
+      console.log(@$('.hit-button'))
+    @model.get('dealerHand').on 'endgame', ->
+      @$('.hit-button').attr "disabled", "true"
+      #@render()
     @render()
-
-    @model.get('dealerHand').on 'endgame', =>
-      console.log('endgame')
 
   render: ->
     @$el.children().detach()
     @$el.html @template()
     @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
-
-  dealerMove: ->
-    @model.get('dealerHand').at(0).set('revealed', true)
-    @model.get('dealerHand').hit()
 
   resetHands: ->
     @model.newDeal()
