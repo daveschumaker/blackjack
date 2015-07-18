@@ -5,4 +5,12 @@ class window.App extends Backbone.Model
     @set 'deck', deck = new Deck()
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
+    @get('playerHand').on 'endgame', ->
+      console.log('ENDGAME')
+    @get('dealerHand').on 'endgame', ->
+      console.log('ENDGAME')
 
+  newDeal: ->
+    console.log(@get('deck'))
+    @set 'playerHand', @get('deck').dealPlayer()
+    @set 'dealerHand', @get('deck').dealDealer()

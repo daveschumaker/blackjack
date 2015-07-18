@@ -6,14 +6,20 @@ class window.Hand extends Backbone.Collection
   hit: ->
     @add(@deck.pop())
     @deck.last()
-    # @checkscore()
 
   checkscore: -> 
+    if @isDealer
+      playerName = "Dealer"
+    else
+      playerName = "Player"
+
     if @scores()[1] == 21
-      alert 'BLACKJACK!'
+      console.log(playerName + ' BLACKJACK!')
+      @trigger 'endgame'
 
     if @scores()[1] > 21
-      alert 'busted'
+      console.log(playerName + ' busted: ' + @scores()[1] + ' Num of Cards: ' + @length)
+      @trigger 'endgame'
     #console.log('Real score: ' + @scores()[0])
     #console.log('Fake score: ' + @scores()[1])
 
@@ -34,4 +40,7 @@ class window.Hand extends Backbone.Collection
 
   stand: ->
 
+  dealerMove: ->
+    @at(0).set('revealed', true)
+    @hit()
 

@@ -1,6 +1,7 @@
 class window.AppView extends Backbone.View
   template: _.template '
     <button class="hit-button">Hit</button> <button class="stand-button">Stand</button>
+    <button class="new-game">New Game</button> 
     <div class="player-hand-container"></div>
     <div class="dealer-hand-container"></div>
   '
@@ -9,13 +10,20 @@ class window.AppView extends Backbone.View
     'click .hit-button': -> @model.get('playerHand').hit()
     'click .stand-button': -> 
       @model.get('playerHand').stand()
-      console.log(@model.get('playerHand').scores()[0])
-      console.log(@model.get('dealerHand').scores()[0])
       while @model.get('dealerHand').scores()[0] < 21
         @dealerMove()
+    'click .new-game': -> @resetHands()
+
+
 
   initialize: ->
+    # @model.get('playerHand').on 'change', =>
+    #   console.log('new hand')
+    #   @render()
     @render()
+
+    @model.get('dealerHand').on 'endgame', =>
+      console.log('endgame')
 
   render: ->
     @$el.children().detach()
@@ -26,4 +34,8 @@ class window.AppView extends Backbone.View
   dealerMove: ->
     @model.get('dealerHand').at(0).set('revealed', true)
     @model.get('dealerHand').hit()
+
+  resetHands: ->
+    @model.newDeal()
+    @render()
 
