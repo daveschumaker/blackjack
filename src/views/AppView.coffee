@@ -17,20 +17,23 @@ class window.AppView extends Backbone.View
       @$('.stand-button').prop 'disabled', true
       while @model.get('dealerHand').getScore() < 17
         @model.get('dealerHand').dealerMove()
-
     'click .new-game': -> @resetHands()
 
 
   initialize: ->
     @model.get('playerHand').on 'endgame', =>
       @$('.hit-button').prop "disabled", "true"
+      @$('.stand-button').prop "disabled", "true"
     @model.get('dealerHand').on 'endgame', =>
       @$('.stand-button').prop "disabled", "true"
+      @model.compareScores()  
     @model.get('playerHand').on 'blackjack', =>
-      @$('.player-hand-container .score').text 'BLACKJACK!'
+      @$('.player-hand-container .score').text '21!'
     @model.get('playerHand').on 'busted', =>
-      $('.player-hand-container .score').text 'BUSTED!'
-      @$('.score').text 'WINS!'
+      console.log('player busted!')
+      console.log(@$('#playerscore').text())
+      $('#playerscore').text 'BUSTED!'
+      @$('#dealerscore').text 'WINS!'
     @model.get('dealerHand').on 'blackjack', =>
       @$('.dealer-hand-container .score').text 'BLACKJACK!'
     @model.get('dealerHand').on 'busted', =>

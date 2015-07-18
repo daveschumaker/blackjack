@@ -11,7 +11,11 @@ class window.App extends Backbone.Model
     @set 'dealerHand', @get('deck').dealDealer()
 
   compareScores: ->
-    # if @get('playerHand').scores()[1] > 21
-    #   # hide the larger score.
-    # if @get('dealerHand').scores()[0] > 21
-    #   # hide the larger score.
+    if @get('playerHand').getScore() <= 21 and @get('dealerHand').getScore() > 21
+      alert 'YOU WIN!'
+    else if @get('playerHand').getScore() <= 21 and @get('playerHand').getScore() > @get('dealerHand').getScore() 
+      alert 'YOU WIN!'
+    else if @get('playerHand').getScore() == @get('dealerHand').getScore()
+      alert 'push.'
+    else
+      alert 'YOU LOSE.....'
