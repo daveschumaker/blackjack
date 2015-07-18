@@ -18,7 +18,7 @@ class window.Hand extends Backbone.Collection
     # if @scores()[0] < 21 && scores()[1] > 21
       # continue game
 
-    if @isDealer && @dealerScore() >= 17
+    if @isDealer && @getScore() >= 17
       @trigger 'endgame', @
 
     if @scores()[0] == 21
@@ -50,7 +50,7 @@ class window.Hand extends Backbone.Collection
 
   # This checks dealer's score based on minScore and minScore + Ace
   # It returns whatever score hasn't busted the dealer.
-  dealerScore: ->
+  getScore: ->
     if @scores()[1] > 21
       @scores()[0]
     else

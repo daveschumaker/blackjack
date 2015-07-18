@@ -9,16 +9,21 @@ class window.AppView extends Backbone.View
   events:
     'click .hit-button': -> @model.get('playerHand').hit()
     'click .stand-button': -> 
-      while @model.get('dealerHand').dealerScore() < 17
+      @$('.stand-button').prop 'disabled', true
+      while @model.get('dealerHand').getScore() < 17
         @model.get('dealerHand').dealerMove()
 
     'click .new-game': -> @resetHands()
 
 
   initialize: ->
-    @model.get('playerHand').on 'endgame', ->
-      console.log(@$('.hit-button'))
-    @model.get('dealerHand').on 'endgame', ->
+    @model.get('playerHand').on 'endgame', =>
+      @$('.hit-button').prop 'disabled', true
+      @$('.stand-button').prop 'disabled', true
+      while @model.get('dealerHand').getScore() < 17
+        @model.get('dealerHand').dealerMove()
+      # console.log(@$('.hit-button'))
+    @model.get('dealerHand').on 'endgame', =>
       @$('.hit-button').attr "disabled", "true"
       #@render()
     @render()
