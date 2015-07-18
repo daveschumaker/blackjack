@@ -6,32 +6,19 @@ class window.Hand extends Backbone.Collection
   hit: ->
     @add(@deck.pop())
     @deck.last()
-    console.log(@scores()[0])
-    console.log(@scores()[1])
 
   checkscore: -> 
-    if @isDealer
-      playerName = "Dealer"
-    else
-      playerName = "Player"
-
-    # if @scores()[0] < 21 && scores()[1] > 21
-      # continue game
 
     if @isDealer && @dealerScore() >= 17
       @trigger 'endgame', @
 
     if @scores()[0] == 21
-      console.log(playerName + ' BLACKJACK!')
       @trigger 'endgame'
+      @trigger 'blackjack'
 
     if @scores()[0] > 21
-      console.log(playerName + ' busted: ' + @scores()[1] + ' Num of Cards: ' + @length)
       @trigger 'endgame'
-    #console.log('Real score: ' + @scores()[0])
-    #console.log('Fake score: ' + @scores()[1])
-
-
+      @trigger 'busted'
 
   #TODO Change this back to "is 1"
   hasAce: -> @reduce (memo, card) ->
