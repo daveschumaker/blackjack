@@ -60,3 +60,18 @@ button:disabled {
   width: 250px;
   margin: auto;
 }
+
+.game-results {
+  text-align: center;
+  display: none;
+  width: 300px;
+  height: 100px;
+  margin: 0 auto;
+  color: black;
+  background-color: white;
+  border: solid 1px #309639;
+  border-radius: 5px;
+  top: 20%;
+  position: relative;
+  z-index: 2;
+}

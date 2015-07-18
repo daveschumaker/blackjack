@@ -3,6 +3,7 @@ class window.AppView extends Backbone.View
   className: 'gameboard'
 
   template: _.template '
+    <div class="game-results"></div>
     <div class="button-container">
       <button class="hit-button">Hit</button> <button class="stand-button">Stand</button>
       <button class="new-game">New Game</button>
@@ -24,9 +25,12 @@ class window.AppView extends Backbone.View
     @model.get('playerHand').on 'endgame', =>
       @$('.hit-button').prop "disabled", "true"
       @$('.stand-button').prop "disabled", "true"
+      $('.game-results').text @model.compareScores()
+      $('.game-results').css 'display' 'block'
     @model.get('dealerHand').on 'endgame', =>
       @$('.stand-button').prop "disabled", "true"
-      @model.compareScores()  
+      $('.game-results').text @model.compareScores()
+      $('.game-results').css 'display' 'block'
     @model.get('playerHand').on 'blackjack', =>
       @$('.player-hand-container .score').text '21!'
     @model.get('playerHand').on 'busted', =>

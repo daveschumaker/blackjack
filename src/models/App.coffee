@@ -12,10 +12,10 @@ class window.App extends Backbone.Model
 
   compareScores: ->
     if @get('playerHand').getScore() <= 21 and @get('dealerHand').getScore() > 21
-      alert 'YOU WIN!'
+     'YOU WIN!'
     else if @get('playerHand').getScore() <= 21 and @get('playerHand').getScore() > @get('dealerHand').getScore() 
-      alert 'YOU WIN!'
+     'YOU WIN!'
     else if @get('playerHand').getScore() == @get('dealerHand').getScore()
-      alert 'push.'
+     'push.'
     else
-      alert 'YOU LOSE.....'
+     'YOU LOSE.....'
