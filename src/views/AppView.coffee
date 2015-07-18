@@ -36,5 +36,6 @@ class window.AppView extends Backbone.View
 
   resetHands: ->
     @model.newDeal()
+    @initialize()
     @render()
 

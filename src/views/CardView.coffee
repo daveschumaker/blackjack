@@ -8,5 +8,5 @@ class window.CardView extends Backbone.View
   render: ->
     @$el.children().detach()
     @$el.html @template @model.attributes
-    @$el.addClass 'covered' unless @model.get 'revealed'
+    @$el.html '<img src="img/card-back.png" height="140" width="100">' unless @model.get 'revealed'
 
